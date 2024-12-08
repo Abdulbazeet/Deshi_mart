@@ -1,6 +1,6 @@
 import 'package:deshi_mart/constants/global_variables.dart';
 import 'package:deshi_mart/presentation/shop/widget/advert.dart';
-import 'package:deshi_mart/presentation/shop/widget/exclusives.dart';
+import 'package:deshi_mart/presentation/shop/widget/store_products.dart';
 import 'package:deshi_mart/presentation/shop/widget/groceries.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';

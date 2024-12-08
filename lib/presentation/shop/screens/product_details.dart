@@ -1,7 +1,9 @@
 import 'package:deshi_mart/common/widgets/custom_button.dart';
 import 'package:deshi_mart/constants/global_variables.dart';
+import 'package:deshi_mart/presentation/onboard/screen/onboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
 
 class ProductDetails extends StatefulWidget {
@@ -20,9 +22,7 @@ class _ProductDetailsState extends State<ProductDetails> {
       appBar: AppBar(
         backgroundColor: Colors.grey.shade200,
         leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () => context.go('/bottom_bar'),
           icon: const Icon(
             Icons.arrow_back_ios,
           ),
