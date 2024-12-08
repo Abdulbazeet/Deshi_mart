@@ -18,6 +18,7 @@ class Global_Variables {
     {
       'name': "Meat & Fish",
       "image": "assets/images/cooking_oil.png",
+      
     },
     {
       'name': "Bakery & Pastries",
