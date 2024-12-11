@@ -5,10 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
 
-enum ExplorePage {
-  mainCategory,
-  productSearch,
-}
+
 
 class NextScreen extends StatefulWidget {
   const NextScreen({super.key});

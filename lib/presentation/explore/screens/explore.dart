@@ -3,6 +3,11 @@ import 'package:deshi_mart/presentation/explore/widets/product_category.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+enum ExplorePage {
+  mainCategory,
+  productSearch,
+}
+
 class Explore extends StatefulWidget {
   const Explore({super.key});
 
@@ -10,9 +15,9 @@ class Explore extends StatefulWidget {
   State<Explore> createState() => _ExploreState();
 }
 
-
 class _ExploreState extends State<Explore> {
   final categoryImages = Global_Variables.categoryProduct;
+  ExplorePage _explorePage = ExplorePage.mainCategory;
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +25,14 @@ class _ExploreState extends State<Explore> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Text(
-          'Find Products',
-          style: TextStyle(
-            fontFamily: 'Gilroy',
-          ),
-        ),
+        title: _explorePage == ExplorePage.mainCategory
+            ? const Text(
+                'Find Products',
+                style: TextStyle(
+                  fontFamily: 'Gilroy',
+                ),
+              )
+            : null,
         centerTitle: true,
       ),
       body: Padding(
@@ -85,6 +92,11 @@ class _ExploreState extends State<Explore> {
               //  padding: EdgeInsets.all(10.sp),
               itemBuilder: (context, index) {
                 return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _explorePage = ExplorePage.productSearch;
+                    });
+                  },
                   child: ProductCategory(
                     category: categoryImages[index]['name']!,
                     image: categoryImages[index]['image']!,
