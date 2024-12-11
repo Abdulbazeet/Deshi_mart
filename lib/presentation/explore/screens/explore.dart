@@ -10,7 +10,10 @@ class Explore extends StatefulWidget {
   State<Explore> createState() => _ExploreState();
 }
 
+
 class _ExploreState extends State<Explore> {
+  final categoryImages = Global_Variables.categoryProduct;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,13 +79,16 @@ class _ExploreState extends State<Explore> {
             ),
             Expanded(
                 child: GridView.builder(
-                  itemCount: 10,
+              itemCount: categoryImages.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2),
-                //  padding: EdgeInsets.all(10.sp),
+              //  padding: EdgeInsets.all(10.sp),
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  child: ProductCategory(),
+                  child: ProductCategory(
+                    category: categoryImages[index]['name']!,
+                    image: categoryImages[index]['image']!,
+                  ),
                 );
               },
             ))

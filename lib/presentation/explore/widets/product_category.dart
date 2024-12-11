@@ -5,7 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 class ProductCategory extends StatefulWidget {
-  const ProductCategory({super.key});
+  final String category;
+  final String image;
+  const ProductCategory({
+    super.key,
+    required this.image,
+    required this.category,
+  });
 
   @override
   State<ProductCategory> createState() => _ProductCategoryState();
@@ -57,13 +63,13 @@ class _ProductCategoryState extends State<ProductCategory> {
               height: 10.sp,
             ),
             Image.asset(
-              'assets/images/vegetable.png',
+              widget.image,
             ),
             SizedBox(
               height: 15.sp,
             ),
             Text(
-              'Fresh Fruits & Vegetables',
+              widget.category,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: 'Gilroy',
