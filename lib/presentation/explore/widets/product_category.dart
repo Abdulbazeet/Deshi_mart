@@ -41,43 +41,42 @@ class _ProductCategoryState extends State<ProductCategory> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: _color.withOpacity(.1),
-          borderRadius: BorderRadius.all(
-            Radius.circular(
-              20.sp,
-            ),
-          ),
-          border: Border.all(
-            color: _color.withOpacity(.7),
-            width: 2,
+    return Container(
+      decoration: BoxDecoration(
+        color: _color.withOpacity(.1),
+        borderRadius: BorderRadius.all(
+          Radius.circular(
+            20.sp,
           ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 10.sp,
-            ),
-            Image.asset(
-              widget.image,
-            ),
-            SizedBox(
-              height: 15.sp,
-            ),
-            Text(
-              widget.category,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'Gilroy',
-                fontSize: 17.sp,
-              ),
-            ),
-          ],
+        border: Border.all(
+          color: _color.withOpacity(.7),
+          width: 2,
         ),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 10.sp,
+          ),
+          Image.asset(
+            widget.image,
+            fit: BoxFit.fitHeight,
+            height: 35.sp,
+          ),
+          SizedBox(
+            height: 15.sp,
+          ),
+          Text(
+            widget.category,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: 'Gilroy',
+              fontSize: 17.sp,
+            ),
+          ),
+        ],
       ),
     );
   }

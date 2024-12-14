@@ -2,6 +2,7 @@ import 'package:deshi_mart/presentation/account/screens/account.dart';
 import 'package:deshi_mart/presentation/bottom_bar.dart';
 import 'package:deshi_mart/presentation/cart/screens/cart.dart';
 import 'package:deshi_mart/presentation/explore/screens/explore.dart';
+import 'package:deshi_mart/presentation/explore/screens/product_screen.dart';
 import 'package:deshi_mart/presentation/favourite/screens/favourite.dart';
 import 'package:deshi_mart/presentation/onboard/screen/next_screen.dart';
 import 'package:deshi_mart/presentation/onboard/screen/onboard.dart';
@@ -59,6 +60,13 @@ final GoRouter router = GoRouter(
       path: '/product_details',
       builder: (context, state) => const ProductDetails(),
     ),
-    
+    GoRoute(
+        path: '/product_screen',
+        builder: (context, state) {
+          final category = state.extra as String;
+          return ProductScreen(
+            category: category,
+          );
+        }),
   ],
 );

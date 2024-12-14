@@ -33,19 +33,19 @@ class Global_Variables {
     },
     {
       'name': "Frozen foods",
-      "image": "assets/images/vegetable.png",
+      "image": "assets/images/froze.png",
     },
     {
       'name': "Spices & Seasoning",
-      "image": "assets/images/vegetable.png",
+      "image": "assets/images/spices.png",
     },
     {
       'name': "Personal Care",
-      "image": "assets/images/vegetable.png",
+      "image": "assets/images/personal.png",
     },
     {
       'name': "Household Supplies",
-      "image": "assets/images/vegetable.png",
+      "image": "assets/images/household.png",
     },
   ];
 }

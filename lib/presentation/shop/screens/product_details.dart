@@ -241,11 +241,11 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 },
                                 icon: rate
                                     ? Icon(
-                                        Icons.arrow_forward_ios_rounded,
+                                        Icons.keyboard_arrow_down_outlined,
                                         size: 20.sp,
                                       )
                                     : Icon(
-                                        Icons.keyboard_arrow_down_sharp,
+                                        Icons.arrow_forward_ios_rounded,
                                         size: 23.sp,
                                       ),
                               ),

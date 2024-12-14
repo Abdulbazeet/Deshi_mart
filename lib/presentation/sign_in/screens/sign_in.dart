@@ -87,6 +87,7 @@ class _SignInState extends State<SignIn> {
                             )
                           : const Icon(
                               Icons.visibility,
+
                               color: Colors.grey,
                             ),
                     ),
@@ -146,6 +147,7 @@ class _SignInState extends State<SignIn> {
                           style: TextStyle(
                             //  color: Colors.black,
                             fontFamily: 'Gilroy',
+                          //  color: Colors.green,
                             fontSize: 16.sp,
                           ),
                         ),
