@@ -9,7 +9,7 @@ class Exclusive extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.go(
+      onTap: () => context.push(
         '/product_details',
       ),
       child: Padding(

@@ -22,7 +22,7 @@ class _ProductDetailsState extends State<ProductDetails> {
       appBar: AppBar(
         backgroundColor: Colors.grey.shade200,
         leading: IconButton(
-          onPressed: () => context.go('/bottom_bar'),
+          onPressed: () => context.pop(),
           icon: const Icon(
             Icons.arrow_back_ios,
           ),

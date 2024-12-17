@@ -1,0 +1,15 @@
+const express = require('express')
+const app = express();
+const PORT = 3000;
+
+
+app.use(express.json())
+app.listen(PORT, () => {
+    console.log('Yes')
+})
+app.get('/hello', (req, res) => {
+    console.log('Connection made')
+    res.send("It's made")
+    
+
+})
