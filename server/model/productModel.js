@@ -14,9 +14,10 @@ const productSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  quantity: {
+  stock: {
     type: Number,
     required: true,
+    default: 0,
   },
   image: [
     {
@@ -36,6 +37,18 @@ const productSchema = mongoose.Schema({
   adminId: {
     required: true,
     type: String,
+  },
+  salesCount: {
+    type: Number,
+    default: 0,
+  },
+  discount: {
+    percentage: {
+      type: Number,
+      default:0
+    },
+    startDate: Date,
+    endDate: Date
   }
 });
 const productModel = mongoose.model("Products", productSchema)
