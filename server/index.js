@@ -21,12 +21,9 @@ mongoose
   .catch((e) => {
     console.log(e.message);
   });
-app.listen(PORT, () => {
-  console.log("Yes");
-});
+// app.listen(PORT, () => {
+//   console.log("Yes");
+// });
 
-// app.get('/hello', (req, res) => {
-//     console.log('Connection made')
-//     res.send("It's made")
+module.exports = app
 
-// })

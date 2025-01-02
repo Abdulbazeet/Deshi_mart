@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 
@@ -17,6 +18,13 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
   Future<void> _signUpRequested(
       OnSignUpRequested event, Emitter<SignUpState> emit) async {
+    final connectionResult = await Connectivity().checkConnectivity();
+    if (connectionResult == ConnectivityResult.none) {
+      emit(
+        Failure('There is no network connection'),
+      );
+      return;
+    }
     try {
       emit(
         Loading(),
@@ -35,8 +43,15 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         emit(
           Success(),
         );
+      } else {
+        emit(
+          Failure(
+            jsonDecode(res.body)['error'],
+          ),
+        );
       }
     } catch (e) {
+      emit(Failure(e.toString()));
       print(e);
     }
   }
