@@ -52,15 +52,6 @@ productRouter.get("/admin/get_all_product", admin, async (req, res) => {
     });
 
     res.status(200).json(adminProducts);
-    // const adminProducts = [];
-
-    //   for (let i = 0; i < allAdminProduct.length; i++){
-    //     if (allAdminProduct[i].adminId == req.userId) {
-    //      adminProducts.push(allAdminProduct[i])
-    //     }
-    //   }
-    //   res.status(200).json({adminProducts})
-    // //  if(!adminProduct)
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
@@ -109,4 +100,76 @@ productRouter.get("/exclusive_offers", auth, async (req, res) => {
   }
 });
 
+// delete product
+productRouter.delete(
+  "/admin/delete_product/:product_id",
+  admin,
+  async (req, res) => {
+    try {
+      const { product_id } = req.params;
+      if (!product_id) res.status(400).json({ msg: "product_id is required" });
+      const adminProducts = await productModel.findById(product_id);
+      if (!adminProducts)
+        res.status(400).json({ msg: "Product with id doesn't exist" });
+      if (!(adminProducts.adminId == req.userId))
+        res
+          .status(400)
+          .json({ msg: "You are not authorized to delete this product" });
+      const product = await productModel.findByIdAndDelete(product_id);
+
+      res.status(200).json({ msg: "Product successfully deleted" });
+    } catch (e) {
+      res.status(500).json({ error: e.message });
+    }
+  }
+);
+
+//update product
+productRouter.put(
+  "/admin/update_product/: product_id",
+  admin,
+  async (req, res) => {
+    try {
+      const { product_id } = req.params;
+
+      const {
+        name,
+        image,
+        description,
+        price,
+        stock,
+        brand,
+        category,
+        salesCount,
+        discount,
+      } = req.body;
+
+      const product = await productModel.findById(product_id);
+      if (!product) res.status(400).json({ msg: "Product doesn not exist" });
+      if (!(product.adminId == req.userId))
+        res
+          .status(400)
+          .json({ msg: "You are not authorized to update product" });
+      let update = {
+        name,
+        image,
+        description,
+        price,
+        stock,
+        brand,
+        category,
+        salesCount,
+        discount,
+      };
+      const updated_product = await productModel.findByIdAndUpdate(
+        product_id,
+        update,
+        { new: true }
+      );
+      res.json({ msg: "Product Successfully updated" });
+    } catch (e) {
+      res.status(500).json({ error: e.message });
+    }
+  }
+);
 module.exports = productRouter;

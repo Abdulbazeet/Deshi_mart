@@ -1,5 +1,5 @@
 const express = require("express");
-const cartRouter = exxpress.Router();
+const cartRouter = express.Router();
 const auth = require("../middleware/user");
 const Cart = require("../model/cart");
 
@@ -10,7 +10,7 @@ cartRouter.post("/add_to_cart", auth, async (req, res) => {
     const userId = req.userId;
     const existingUser = await Cart.findOne({ userId });
     if (!existingUser) {
-      let add_to_cart = new addCart({
+      let add_to_cart = new Cart({
         userId,
         items: [
           {
@@ -34,7 +34,7 @@ cartRouter.post("/add_to_cart", auth, async (req, res) => {
 });
 
 //get user cart
-cartRouter.get("/get_cart".auth, async (req, res) => {
+cartRouter.get("/get_cart", auth, async (req, res) => {
   try {
     const userId = req.userId;
     const userCart = await Cart.findOne({ userId });
@@ -43,3 +43,5 @@ cartRouter.get("/get_cart".auth, async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
+
+module.exports = cartRouter;

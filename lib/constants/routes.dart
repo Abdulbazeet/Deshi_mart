@@ -1,4 +1,5 @@
 import 'package:deshi_mart/presentation/account/screens/account.dart';
+import 'package:deshi_mart/presentation/sign_in/screens/sign_in.dart';
 import 'package:deshi_mart/presentation/bottom_bar.dart';
 import 'package:deshi_mart/presentation/cart/screens/cart.dart';
 import 'package:deshi_mart/presentation/explore/screens/explore.dart';
@@ -8,11 +9,9 @@ import 'package:deshi_mart/presentation/onboard/screen/next_screen.dart';
 import 'package:deshi_mart/presentation/onboard/screen/onboard.dart';
 import 'package:deshi_mart/presentation/shop/screens/product_details.dart';
 import 'package:deshi_mart/presentation/shop/screens/shop.dart';
-import 'package:deshi_mart/presentation/sign_in/screens/sign_in.dart';
 import 'package:deshi_mart/presentation/sign_up/screens/sign_up.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:flutter/material.dart';
 
 final GoRouter router = GoRouter(
   routes: [
