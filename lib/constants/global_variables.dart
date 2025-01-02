@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-const String uri = "http://192.168.1.183";
+const String uri = "https://deshi-mart.vercel.app";
 
 class Global_Variables {
   static const main_color = Color(0xfff53B175);

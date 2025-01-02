@@ -14,7 +14,7 @@ app.use(cartRouter);
 app.use(orderRouter);
 
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(process.env.MONGODB_URL)
   .then(() => {
     console.log("Connection made");
   })
