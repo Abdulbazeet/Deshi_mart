@@ -176,14 +176,15 @@ class _SignUpState extends State<SignUp> {
                         height: 20.sp,
                       ),
                       CustomButton(
-                        text: 'Log in',
+                        text: 'Sign up',
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             context.read<SignUpBloc>().add(
                                   OnSignUpRequested(
-                                    name: _nameController.text,
-                                    email: _emailController.text,
-                                    password: _passwordController.text,
+                                    name: _nameController.text.trim(),
+                                    email: _emailController.text.trim(),
+                                    password:
+                                        _passwordController.text.trim(),
                                   ),
                                 );
                           }
@@ -234,21 +235,26 @@ class _SignUpState extends State<SignUp> {
                   //   context: context,
                   //   builder: (context) => Dialog(),
                   // );
-                  return Container(
-                    height: 100.h,
-                    width: 100.w,
-                    color: Colors.grey.withOpacity(.5),
-                    child: Center(
-                      child: ClipRect(
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(),
-                          child: LoadingAnimationWidget.staggeredDotsWave(
-                            color: Global_Variables.main_color,
-                            size: 35.sp,
+                  return Stack(
+                    children: [
+                      Container(
+                        height: 100.h,
+                        width: 100.w,
+                        color: Colors.grey.withOpacity(.5),
+                      ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: ClipRect(
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(),
+                            child: LoadingAnimationWidget.staggeredDotsWave(
+                              color: Global_Variables.main_color,
+                              size: 35.sp,
+                            ),
                           ),
                         ),
                       ),
-                    ),
+                    ],
                   );
                   //  return const CircularProgressIndicator.adaptive();
                 }
@@ -256,6 +262,7 @@ class _SignUpState extends State<SignUp> {
               },
               listener: (context, state) {
                 if (state is Failure) {
+                  print(state.error);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       backgroundColor: Colors.grey.shade300,

@@ -1,6 +1,7 @@
 import 'package:deshi_mart/constants/global_variables.dart';
 import 'package:deshi_mart/constants/routes.dart';
 import 'package:deshi_mart/presentation/onboard/screen/onboard.dart';
+import 'package:deshi_mart/presentation/sign_in/bloc/sign_in_bloc.dart';
 import 'package:deshi_mart/presentation/sign_up/bloc/sign_up_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +21,10 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (context) => SignUpBloc(),
-          )
+          ),
+          BlocProvider(
+            create: (context) => SignInBloc(),
+          ),
         ],
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,

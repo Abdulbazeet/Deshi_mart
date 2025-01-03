@@ -31,6 +31,9 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       );
       http.Response res = await http.post(
         Uri.parse("$uri/auth_signUp"),
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: jsonEncode(
           {
             "email": event.email,
@@ -43,7 +46,13 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         emit(
           Success(),
         );
-      } else {
+      } else if (res.statusCode == 400) {
+        emit(
+          Failure(
+            jsonDecode(res.body)['msg'],
+          ),
+        );
+      } else if (res.statusCode == 500) {
         emit(
           Failure(
             jsonDecode(res.body)['error'],
