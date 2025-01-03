@@ -10,8 +10,11 @@ authRouter.post("/auth_signUp", async (req, res) => {
   try {
     const { name, email, password } = req.body;
     const existingUser = await user.findOne({ email });
-    if (existingUser)
-      res.status(400).json({ msg: "There is a user with this email address" });
+    if (existingUser) {
+      return res
+        .status(400)
+        .json({ msg: "There is a user with this email address" });
+    }
 
     const hashedPassword = await bcrypt.hash(password, 8);
 
@@ -27,27 +30,28 @@ authRouter.post("/auth_signUp", async (req, res) => {
   }
 });
 
-
 //login as user
 authRouter.post("/auth_signIn", async (req, res) => {
   try {
     const { email, password } = req.body;
     const availableUser = await user.findOne({ email });
-    if (!availableUser)
-      res.status(400).json({ msg: "No user with email exists" });
+    if (!availableUser) {
+      return res.status(400).json({ msg: "No user with email exists" });
+    }
     const correctPassword = await bcrypt.compare(
       password,
       availableUser.password
     );
-    if (!correctPassword)
-      res.status(400).json({ msg: "The password provided is wrong" });
+    if (!correctPassword) {
+      return res.status(400).json({ msg: "The password provided is wrong" });
+
+    }
     const token = jwt.sign({ id: availableUser._id }, "tokenKey");
     res.json({ token, ...availableUser._doc });
   } catch (e) {
     res.json({ error: e.message });
   }
 });
-
 
 module.exports = authRouter;
 
