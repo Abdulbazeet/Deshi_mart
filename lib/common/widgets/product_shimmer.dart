@@ -1,25 +1,13 @@
 import 'package:deshi_mart/constants/global_variables.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
 
-class Exclusive extends StatelessWidget {
-  final String name;
-  final String price;
-  final int quantity;
-
-  const Exclusive(
-      {super.key,
-      required this.name,
-      required this.price,
-      required this.quantity});
+class ProductShimmer extends StatelessWidget {
+  const ProductShimmer({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => context.push(
-        '/product_details',
-      ),
+    return Container(
       child: Padding(
         padding: EdgeInsets.only(
           top: 10.sp,
@@ -52,14 +40,14 @@ class Exclusive extends StatelessWidget {
                 height: 20.sp,
               ),
               Text(
-                name,
+                '',
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontFamily: 'Gilroy',
                 ),
               ),
               Text(
-                '${quantity}pcs',
+                '',
                 textAlign: TextAlign.left,
                 style: TextStyle(
                   fontSize: 16.sp,
@@ -75,7 +63,7 @@ class Exclusive extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '\$$price',
+                    '',
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontFamily: 'Gilroy',

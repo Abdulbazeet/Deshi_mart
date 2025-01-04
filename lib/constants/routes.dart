@@ -13,7 +13,10 @@ import 'package:deshi_mart/presentation/sign_up/screens/sign_up.dart';
 import 'package:go_router/go_router.dart';
 
 
-final GoRouter router = GoRouter(
+ GoRouter router(String initialRoute) {
+  return
+  GoRouter(
+    initialLocation: initialRoute,
   routes: [
     GoRoute(
       path: '/',
@@ -69,3 +72,4 @@ final GoRouter router = GoRouter(
         }),
   ],
 );
+ }

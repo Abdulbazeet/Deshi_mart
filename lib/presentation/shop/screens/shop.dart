@@ -1,8 +1,12 @@
+import 'package:deshi_mart/common/widgets/product_shimmer.dart';
 import 'package:deshi_mart/constants/global_variables.dart';
+import 'package:deshi_mart/presentation/shop/bloc/shop_bloc.dart';
 import 'package:deshi_mart/presentation/shop/widget/advert.dart';
 import 'package:deshi_mart/presentation/shop/widget/store_products.dart';
 import 'package:deshi_mart/presentation/shop/widget/groceries.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:sizer/sizer.dart';
 
 class Shop extends StatefulWidget {
@@ -13,6 +17,16 @@ class Shop extends StatefulWidget {
 }
 
 class _ShopState extends State<Shop> {
+  getExclusiveOffer() {
+    context.read<ShopBloc>().add(ShowExclusiveOffer());
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getExclusiveOffer();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -136,17 +150,82 @@ class _ShopState extends State<Shop> {
                         height: 20.sp,
                       ),
                       SizedBox(
-                        height: 70.sp,
-                        child: ListView(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          children: const [
-                            Exclusive(),
-                            Exclusive(),
-                            Exclusive(),
-                          ],
-                        ),
-                      ),
+                          height: 70.sp,
+                          child: BlocConsumer<ShopBloc, ShopState>(
+                            builder: (context, state) {
+                              if (state is Loading) {
+                                return Shimmer.fromColors(
+                                    baseColor: Colors.grey.shade600,
+                                    highlightColor: Colors.grey.shade300,
+                                    child: ListView(
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      children: [
+                                        Container(
+                                            color: Colors.grey,
+                                            child: ProductShimmer()),
+                                        ProductShimmer(),
+                                        ProductShimmer(),
+                                        ProductShimmer()
+                                      ],
+                                    ));
+                              }
+                              if (state is Success) {
+                                return ListView.builder(
+                                  itemCount: state.productModel.length,
+                                  itemBuilder: (context, index) => Exclusive(
+                                    name: state.productModel[index].name,
+                                    price:
+                                        '\$${state.productModel[index].price}',
+                                    quantity: state.productModel[index].stock,
+                                  ),
+                                );
+                              }
+                              if (state is Empty) {
+                                return Text(
+                                  state.desc,
+                                  style: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontFamily: 'Gilroy',
+                                  ),
+                                );
+                              }
+                              return SizedBox.shrink();
+                              // ListView(
+                              //   shrinkWrap: true,
+                              //   scrollDirection: Axis.horizontal,
+                              //   children: const [
+                              //     Exclusive(),
+                              //     Exclusive(),
+                              //     Exclusive(),
+                              //   ],
+                              // );
+                            },
+                            listener: (context, state) {
+                              if (state is Failure) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    backgroundColor: Colors.grey.shade300,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(
+                                            20.sp,
+                                          ),
+                                          topRight: Radius.circular(
+                                            20.sp,
+                                          )),
+                                    ),
+                                    content: Text(
+                                      state.error,
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }
+                            },
+                          )),
                       SizedBox(
                         height: 20.sp,
                       ),
@@ -181,9 +260,9 @@ class _ShopState extends State<Shop> {
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
                           children: const [
-                            Exclusive(),
-                            Exclusive(),
-                            Exclusive(),
+                            // Exclusive(),
+                            // Exclusive(),
+                            // Exclusive(),
                           ],
                         ),
                       ),
@@ -216,12 +295,12 @@ class _ShopState extends State<Shop> {
                         height: 20.sp,
                       ),
                       SizedBox(
-                      //  width: 70.sp,
+                        //  width: 70.sp,
                         height: 40.sp,
                         child: ListView(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
-                          children:  [
+                          children: [
                             Groceries(),
                             Groceries(),
                             Groceries(),

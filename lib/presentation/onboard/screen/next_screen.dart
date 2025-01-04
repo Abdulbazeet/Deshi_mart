@@ -1,11 +1,10 @@
 import 'package:deshi_mart/common/widgets/custom_button.dart';
 import 'package:deshi_mart/constants/global_variables.dart';
+import 'package:deshi_mart/constants/shared.dart';
 import 'package:deshi_mart/presentation/onboard/widgets/deshi_column.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
-
-
 
 class NextScreen extends StatefulWidget {
   const NextScreen({super.key});
@@ -15,6 +14,23 @@ class NextScreen extends StatefulWidget {
 }
 
 class _NextScreenState extends State<NextScreen> {
+  // String? token;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   fetchToken();
+  // }
+
+  // // Fetch token asynchronously
+  // Future<void> fetchToken() async {
+  //   final fetchedToken = await Shared.getToken();
+  //   setState(() {
+  //     token = fetchedToken;
+  //   });
+  //   print('Fetched Token: $fetchedToken');
+  // }
+
   void showDialog() {
     showModalBottomSheet(
       context: context,
