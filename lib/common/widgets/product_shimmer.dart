@@ -23,6 +23,7 @@ class ProductShimmer extends StatelessWidget {
             right: 15.sp,
           ),
           decoration: BoxDecoration(
+            color: Colors.grey,
             borderRadius: BorderRadius.all(
               Radius.circular(
                 20.sp,

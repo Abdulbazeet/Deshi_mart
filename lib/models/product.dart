@@ -12,11 +12,13 @@ class ProductModel {
   final String adminId;
   final int stock;
   final int salesCount;
- final Discount discount;
+  final double discountedPrice;
+  final Discount discount;
   final List<String> image;
 
   ProductModel(
       {required this.id,
+      required this.discountedPrice,
       required this.name,
       required this.price,
       required this.description,
@@ -39,13 +41,17 @@ class ProductModel {
       'adminId': adminId,
       'stock': stock,
       'salesCount': salesCount,
-      //  'discount': discount.toMap(),
+      'discount': discount.toMap(),
       'image': image,
     };
   }
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
+    double originalPrice = double.parse(map['price']);
+    int discountPercentage = map['discount']['percentage'] ?? 0;
+    double discounted = ((100 - discountPercentage) / 100) * originalPrice;
     return ProductModel(
+      discountedPrice: discounted,
       id: map['_id'] as String,
       name: map['name'] as String,
       price: map['price'] as String,
@@ -55,9 +61,9 @@ class ProductModel {
       adminId: map['adminId'] as String,
       stock: map['stock'] as int,
       salesCount: map['salesCount'] as int,
-        discount: Discount.fromMap(map['discount'] as Map<String, dynamic>),
+      discount: Discount.fromMap(map['discount'] as Map<String, dynamic>),
       image: List<String>.from(
-        (map['image'] as List<String>),
+        (map['image'] as List<dynamic>).map((item) => item as String),
       ),
     );
   }
@@ -70,8 +76,8 @@ class ProductModel {
 
 class Discount {
   final int percentage;
-  final DateTime startDate;
-  final DateTime endDate;
+  final DateTime? startDate;
+  final DateTime? endDate;
   Discount({
     required this.percentage,
     required this.startDate,
@@ -81,8 +87,8 @@ class Discount {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'percentage': percentage,
-      'startDate': startDate.millisecondsSinceEpoch,
-      'endDate': endDate.millisecondsSinceEpoch,
+      'startDate': startDate!.toIso8601String(),
+      'endDate': endDate!.toIso8601String(),
     };
   }
 
@@ -91,8 +97,9 @@ class Discount {
       percentage: map['percentage'] as int,
       // startDate: DateTime.fromMillisecondsSinceEpoch(map['startDate'] as int),
       // endDate: DateTime.fromMillisecondsSinceEpoch(map['endDate'] as int),
-      startDate: DateTime.parse(map['startDate']),
-      endDate: DateTime.parse(map['endDate']),
+      startDate:
+          map['startDate'] != null ? DateTime.parse(map['startDate']) : null,
+      endDate: map['endDate'] != null ? DateTime.parse(map['endDate']) : null,
     );
   }
 

@@ -6,7 +6,6 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:deshi_mart/constants/global_variables.dart';
 import 'package:deshi_mart/constants/shared.dart';
 import 'package:deshi_mart/models/product.dart';
-import 'package:deshi_mart/presentation/explore/widets/products.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 
@@ -38,6 +37,7 @@ class ShopBloc extends Bloc<ShopEvent, ShopState> {
           "authToken": token
         },
       );
+
       switch (res.statusCode) {
         case 200:
           // print(jsonDecode(res.body));
@@ -49,16 +49,41 @@ class ShopBloc extends Bloc<ShopEvent, ShopState> {
                 "No available product for exclusive offer",
               ),
             );
+            return;
           }
-          List<Map<String, dynamic>> product = jsonDecode(res.body);
-          products = product
-              .map(
-                (e) => ProductModel.fromMap(e),
-              )
-              .toList();
-          emit(
-            Success(productModel: products),
-          );
+
+          List<dynamic> product = jsonDecode(res.body);
+
+          List<Map<String, dynamic>> decodedProduct =
+              product.cast<Map<String, dynamic>>();
+          for (int i = 0; i < decodedProduct.length; i++) {
+            if (decodedProduct[i]['discount']['percentage'] > 0) {
+              //   print(decodedProduct[i]);
+              Map<String, dynamic> currentProduct = decodedProduct[i];
+
+              DateTime? endDate =
+                  DateTime.parse(decodedProduct[i]['discount']['endDate']);
+              DateTime now = DateTime.now();
+              //  print(now);
+              if ((endDate.isAfter(now))) {
+                products.add(
+                  ProductModel.fromMap(currentProduct),
+                );
+              }
+            }
+          }
+          if (products.isNotEmpty) {
+            emit(
+              Success(productModel: products),
+            );
+          } else {
+            emit(
+              Empty(
+                'No available product for exclusive offer',
+              ),
+            );
+          }
+
         case 500:
           emit(
             Failure(
@@ -74,8 +99,13 @@ class ShopBloc extends Bloc<ShopEvent, ShopState> {
     }
   }
 
-  // Future<void> _showBestSelling(
-  //     ShowBestSelling event, Emitter<ShopState> emit) async {}
+  Future<void> _showBestSelling(
+      ShowBestSelling event, Emitter<ShopState> emit) async {
+    final connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.none) {
+      emit(Failure('No internet connection detected'));
+    }
+  }
 
   // Future<void> _showAdvert(ShowAdvert event, Emitter<ShopState> emit) async {}
 }

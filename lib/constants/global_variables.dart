@@ -1,11 +1,18 @@
 // ignore_for_file: constant_identifier_names, use_full_hex_values_for_flutter_colors
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 const String uri = "https://deshi-mart.vercel.app";
 
 class Global_Variables {
   static const main_color = Color(0xfff53B175);
+  static String setPrice(String number) {
+    double fr = double.parse(number);
+    // Format number with commas
+    String formattedNumber = NumberFormat("#,##0.00").format(fr);
+    return (formattedNumber);
+  }
 
   // static const primary_color = Color(0xFFF53B175);
   static final List<Map<String, String>> categoryProduct = [

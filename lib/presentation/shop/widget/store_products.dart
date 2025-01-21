@@ -6,13 +6,15 @@ import 'package:sizer/sizer.dart';
 class Exclusive extends StatelessWidget {
   final String name;
   final String price;
+  final String discountedPrice;
   final int quantity;
 
   const Exclusive(
       {super.key,
       required this.name,
       required this.price,
-      required this.quantity});
+      required this.quantity,
+      required this.discountedPrice});
 
   @override
   Widget build(BuildContext context) {
@@ -74,12 +76,25 @@ class Exclusive extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    '\$$price',
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      fontFamily: 'Gilroy',
-                    ),
+                  Column(
+                    children: [
+                      Text(
+                        '\$$discountedPrice',
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontFamily: 'Gilroy',
+                        ),
+                      ),
+                      Text(
+                        '\$$price',
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          color: Colors.grey,
+                          decoration: TextDecoration.lineThrough,
+                          fontFamily: 'Gilroy',
+                        ),
+                      ),
+                    ],
                   ),
                   IconButton(
                       style: ElevatedButton.styleFrom(
@@ -103,7 +118,7 @@ class Exclusive extends StatelessWidget {
                         color: Colors.white,
                       ))
                 ],
-              )
+              ),
             ],
           ),
         ),
